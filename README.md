@@ -6,3 +6,4 @@ ORM And Migration Project
 - Link with Github.
 - Select the repository `ORM_And_Migration_Project`.
 - Select the desired branch.
+- Select the `Diagram.drawio` file.
