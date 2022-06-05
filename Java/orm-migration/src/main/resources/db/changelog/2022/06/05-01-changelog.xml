@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1654442669118-1" author="Saud (generated)">
+        <createTable tableName="course">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_course"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="academic_hours" type="INT"/>
+            <column name="actual_hours" type="INT"/>
+            <column name="teacher_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1654442669118-2" author="Saud (generated)">
+        <createTable tableName="student">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_student"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="gpa" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1654442669118-3" author="Saud (generated)">
+        <createTable tableName="student_course">
+            <column name="course_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_student_course"/>
+            </column>
+            <column name="student_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_student_course"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1654442669118-4" author="Saud (generated)">
+        <createTable tableName="teacher">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_teacher"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1654442669118-5" author="Saud (generated)">
+        <addForeignKeyConstraint baseColumnNames="teacher_id" baseTableName="course"
+                                 constraintName="FK_COURSE_ON_TEACHER" referencedColumnNames="id"
+                                 referencedTableName="teacher"/>
+    </changeSet>
+    <changeSet id="1654442669118-6" author="Saud (generated)">
+        <addForeignKeyConstraint baseColumnNames="course_id" baseTableName="student_course"
+                                 constraintName="fk_stucou_on_course" referencedColumnNames="id"
+                                 referencedTableName="course"/>
+    </changeSet>
+    <changeSet id="1654442669118-7" author="Saud (generated)">
+        <addForeignKeyConstraint baseColumnNames="student_id" baseTableName="student_course"
+                                 constraintName="fk_stucou_on_student" referencedColumnNames="id"
+                                 referencedTableName="student"/>
+    </changeSet>
+
+</databaseChangeLog>

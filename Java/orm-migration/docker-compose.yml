@@ -1,0 +1,18 @@
+
+version: '3'
+
+services:
+  postgres-database:
+    image: 'postgres:latest'
+
+    ports:
+      - 5432:5432
+
+    environment:
+      POSTGRES_USER: 'orm'
+      POSTGRES_PASSWORD: 'migration'
+      POSTGRES_DB: 'test_java'
+
+
+#  java-application:
+#    image: 'orm-migration/java'
