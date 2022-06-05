@@ -7,7 +7,7 @@ db = SQLAlchemy()
 Base = orm.declarative_base()
 
 
-class Association(db.Model):
+class Association(Base):
 
     __tablename__ = 'association'
     sid = db.Column(db.ForeignKey("student.id"), primary_key=True)
@@ -41,7 +41,7 @@ class Association(db.Model):
         return f'Student Data: {self.first_name} {self.last_name} {self.gpa}'
 
 
-class Student(db.Model):
+class Student(Base):
     __tablename__ ='student'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -79,7 +79,7 @@ class Student(db.Model):
 
 
 
-class Course(db.Model):
+class Course(Base):
     __tablename__ ='course'
 
     id = db.Column(db.Integer,primary_key=True)
@@ -119,7 +119,7 @@ class Course(db.Model):
 
 
 
-class Teacher(db.Model):
+class Teacher(Base):
     __tablename__ ='teacher'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -129,7 +129,7 @@ class Teacher(db.Model):
 
     def __init__(self, first_name, last_name, cid):
         self.first_name = first_name
-        self.nalast_nameme = last_name
+        self.last_name = last_name
         self.cid = cid
 
 
