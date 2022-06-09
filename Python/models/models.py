@@ -34,7 +34,7 @@ class Association(Base):
             'cid': self.cid,
         }
     def __repr__(self):
-        return f'Student Data: {self.sid} {self.cid}'
+        return f'Association Data: {self.sid} {self.cid}'
 
 
 class Student(Base):
