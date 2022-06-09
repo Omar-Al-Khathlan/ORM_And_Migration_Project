@@ -8,16 +8,14 @@ Base = orm.declarative_base()
 
 
 class Association(Base):
-
     __tablename__ = 'association'
     sid = db.Column(db.ForeignKey("student.id"), primary_key=True)
     cid = db.Column(db.ForeignKey("course.id"), primary_key=True)
     course = db.relationship("Course", backref="Association")
 
-    def __init__(self, first_name, last_name, gpa):
-        self.first_name = first_name
-        self.last_name = last_name
-        self.gpa = gpa
+    def __init__(self, sid, cid):
+        self.sid = sid
+        self.cid = cid
 
     def insert(self):
         db.session.add(self)
@@ -32,13 +30,11 @@ class Association(Base):
 
     def format(self):
         return {
-            'id': self.id,
-            'first_name': self.first_name,
-            'last_name': self.last_name,
-            'gpa': self.gpa,
+            'sid': self.sid,
+            'cid': self.cid,
         }
     def __repr__(self):
-        return f'Student Data: {self.first_name} {self.last_name} {self.gpa}'
+        return f'Student Data: {self.sid} {self.cid}'
 
 
 class Student(Base):
@@ -77,22 +73,19 @@ class Student(Base):
         return f'Student Data: {self.first_name} {self.last_name} {self.gpa}'
 
 
-
-
 class Course(Base):
     __tablename__ ='course'
-
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String(128))
     academic_hours = db.Column(db.Integer)
     actual_hours = db.Column(db.Integer)
-    teacher = orm.relationship('Teacher')
+    tid = db.Column(db.Integer, db.ForeignKey("teacher.id"))
 
-    def __init__(self, name, academic_hours, actual_hours):
+    def __init__(self, name, academic_hours, actual_hours, tid):
         self.name = name
         self.academic_hours = academic_hours
         self.actual_hours = actual_hours
-
+        self.tid = tid
 
     def insert(self):
         db.session.add(self)
@@ -111,27 +104,23 @@ class Course(Base):
             'name': self.name,
             'academic_hours': self.academic_hours,
             'actual_hours': self.actual_hours,
+            'tid': self.tid,
         }
 
     def __repr__(self):
-        return f'Course Data: {self.name} {self.academic_hours} {self.actual_hours}'
-
-
+        return f'Course Data: {self.name} {self.academic_hours} {self.actual_hours} {self.tid}'
 
 
 class Teacher(Base):
     __tablename__ ='teacher'
-
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(128))
     last_name = db.Column(db.String(128))
-    cid = db.Column(db.Integer, db.ForeignKey("course.id"))
+    course = orm.relationship('Course')
 
-    def __init__(self, first_name, last_name, cid):
+    def __init__(self, first_name, last_name):
         self.first_name = first_name
         self.last_name = last_name
-        self.cid = cid
-
 
     def insert(self):
         db.session.add(self)
@@ -149,9 +138,8 @@ class Teacher(Base):
             'id': self.id,
             'first_name': self.first_name,
             'last_name': self.last_name,
-            'cid': self.cid,
         }
     
     def __repr__(self):
-        return f'Teacher Data: {self.first_name} {self.last_name} {self.cid}'
+        return f'Teacher Data: {self.first_name} {self.last_name}'
 
